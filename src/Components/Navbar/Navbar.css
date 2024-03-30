@@ -1,0 +1,65 @@
+.navbar{
+    display: flex;
+    justify-content: space-around;
+    padding: 12px;
+    box-shadow: 0 1px 3px -2px black;
+}
+.navlogo{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-left: -280px;
+}
+.title{
+    position: absolute;
+    color: rgb(103, 67, 21);
+    font-size: 50px;
+    font-weight: 900;
+    left: 27%; /* Center horizontally */
+    top: 7%;
+    transform: translate(-50%, -50%);
+}
+.navTradeLogin{
+    display: flex;
+    align-items: center;
+    gap: 45px;
+    margin-right: -265px;
+}
+.navTradeLogin button {
+    padding: 10px 20px; /* Adds space inside the buttons */
+    border: 2px solid rgb(103, 67, 21); /* Sets the border color */
+    background-color: white; /* Sets the background color */
+    color: rgb(103, 67, 21); /* Sets the text color */
+    font-size: 16px; /* Sets the font size */
+    font-weight: bold; /* Makes the text bold */
+    border-radius: 5px; /* Rounds the corners of the button */
+    text-transform: uppercase; /* Makes the text uppercase */
+    cursor: pointer; /* Changes the cursor to a pointer on hover */
+    transition: all 0.3s ease; /* Smooth transition for hover effects */
+  }
+  
+  /* Button hover state */
+  .navTradeLogin button:hover {
+    background-color: rgb(103, 67, 21); /* Changes background color on hover */
+    color: white; /* Changes text color on hover */
+  }
+  
+  /* Button focus state */
+  .navTradeLogin button:active {
+    background-color: rgb(73, 48, 15); /* Changes background color on hover */
+    color: white; /* Changes text color on hover */
+  }
+  .tradeCount{
+    position:absolute;
+    width: 22px;
+    height: 22px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: -35px;
+    margin-left: 410px;
+    border-radius: 11px;
+    font-size: 14px;
+    background: red;
+    color: white;
+  }
