@@ -49,17 +49,3 @@
     background-color: rgb(73, 48, 15); /* Changes background color on hover */
     color: white; /* Changes text color on hover */
   }
-  .tradeCount{
-    position:absolute;
-    width: 22px;
-    height: 22px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: -35px;
-    margin-left: 410px;
-    border-radius: 11px;
-    font-size: 14px;
-    background: red;
-    color: white;
-  }

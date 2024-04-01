@@ -68,7 +68,7 @@ const ProductPage = () => {
     if (responseOffer.ok) {
       // Handle successful submission here
       console.log('Offer submitted successfully'); 
-      window.location.reload()
+      navigate('/');
     } else {
       // Handle errors here
       console.error('An error occurred while submitting the form');

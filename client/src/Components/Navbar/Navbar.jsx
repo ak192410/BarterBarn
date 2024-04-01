@@ -44,7 +44,6 @@ const Navbar = () => {
           <img style={{width:110, height:92}} src={trades} alt=""/>
         </Link>
         
-        <div className ='tradeCount'>0</div>
       </div>
     </div>
   )
