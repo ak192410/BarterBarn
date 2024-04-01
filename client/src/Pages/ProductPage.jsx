@@ -10,6 +10,8 @@ const ProductPage = () => {
   const [cookies, setCookie, removeCookie] = useCookies(null);
   const authToken = cookies.AuthToken;
   const userEmail = cookies.Email;
+  const [offerDFV, setOfferDFV] = useState(null);
+  const [offerD, setOfferD] = useState(null);
   const navigate = useNavigate();
   const handleOfferChange = (e) => setOffer(e.target.value);
   useEffect(() => {
@@ -22,9 +24,38 @@ const ProductPage = () => {
         console.error('Failed to load product details');
       }
     };
-
+    const fetchOfferDetailsForViewer = async () => {
+        const responseOfferDFV = await fetch(`${process.env.REACT_APP_SERVERURL}/offerDFV/${productId}/${userEmail}`);
+        if (responseOfferDFV.ok) {
+          const DFV = await responseOfferDFV.json();
+          setOfferDFV(DFV);
+        } else {
+          console.error('Failed to load product details');
+        }
+    };
+    const fetchOfferDetails = async () => {
+        const responseOfferD = await fetch(`${process.env.REACT_APP_SERVERURL}/offerD/${productId}`);
+        if (responseOfferD.ok) {
+          const D = await responseOfferD.json();
+          setOfferD(D);
+          console.log(offerD);
+        } else {
+          console.error('Failed to load product details');
+        }
+    };
+    fetchOfferDetailsForViewer();
+    fetchOfferDetails();
     fetchProductDetails();
   }, [productId]);
+  const accept = async (e) => {
+    e.preventDefault()
+    const response = await fetch(`${process.env.REACT_APP_SERVERURL}/accept/${productId}`);
+    if (response.ok) {
+        navigate('/');
+    } else {
+        console.error("failed to accept");
+    }
+}
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -37,7 +68,7 @@ const ProductPage = () => {
     if (responseOffer.ok) {
       // Handle successful submission here
       console.log('Offer submitted successfully'); 
-      navigate("/");
+      window.location.reload()
     } else {
       // Handle errors here
       console.error('An error occurred while submitting the form');
@@ -47,20 +78,26 @@ const ProductPage = () => {
   if (!product) {
     return <div>Loading...</div>;
   }
-  if(userEmail !== product.email || !authToken){
+  if(userEmail !== product.email){
     return (
         <div className="product-page">
         <div className="product-details">
-            <h1>{product.title}</h1>
+            <h1>{product.name}</h1>
             <img src={product.image} alt={product.title} />
             <p>{product.description}</p>
         </div>
+        <div className="offer-container">
         <div className="offer-section">
             <h2>Make an Offer</h2>
             <form onSubmit={handleSubmit} encType="multipart/form-data">
             <textarea value={offer} onChange={handleOfferChange} placeholder="Your offer..." />
             <button type="submit">Submit Offer</button>
             </form>
+        </div>
+        <div className="offersMade">
+            <h1>Your Offers</h1>
+            <ul>{offerDFV.map((offerItem)=><li>{offerItem.offer}</li>)}</ul>
+        </div>
         </div>
         </div>
     );
@@ -71,6 +108,19 @@ const ProductPage = () => {
             <h1>{product.title}</h1>
             <img src={product.image} alt={product.title} />
             <p>{product.description}</p>
+        </div>
+        <div className="offer-container">
+        <div className="offersMade">
+            <h1>Your Offers</h1>
+            <ul>{offerD.map((offerItem)=>
+            <div classname='offersCreator'>
+                <li>{offerItem.id}
+                <button style={{float: 'right'}} onClick={(e) => accept(e)}>ACCEPT</button>
+                </li>
+            </div>
+            
+            )}</ul>
+        </div>
         </div>
         </div>
     );

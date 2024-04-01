@@ -1,54 +1,90 @@
 .product-page {
     display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    padding: 20px;
-    gap: 40px;
+    max-width: 1200px; /* Adjust this as needed */
+    margin: 40px auto; /* This adds margin to the top/bottom and auto centers the layout */
+    align-items: flex-start; /* Aligns items to the top */
   }
   
   .product-details {
-    flex: 3;
-    max-width: 60%;
+    flex-basis: 50%; /* Allocate 50% of the space to product details */
+    text-align: left; /* Aligns the text to the left */
+    padding-right: 20px; /* Adds padding between the product details and the offer sections */
   }
   
   .product-details img {
-    max-width: 100%;
+    width: 100%; /* Image takes up 100% of the .product-details width */
+    max-width: 400px; /* Adjust maximum width as needed */
     height: auto;
-    object-fit: contain; /* This will ensure the image is fully visible */
+    object-fit: contain;
   }
   
-  .offer-section {
-    flex: 1;
-    max-width: 40%;
+  .offer-container {
+    flex-basis: 50%; /* Allocate 50% of the space to the offer sections */
+    display: flex;
+    flex-direction: column;
+    padding-left: 20px; /* Adds padding between the offer sections and the product details */
+  }
+  
+  .offer-section, .offersMade {
+    margin-bottom: 20px; /* Add some space between the offer sections */
+    padding: 20px;
+    border: 1px solid #eaeaea; /* Subtle border */
+    border-radius: 8px; /* Rounded corners */
+    background-color: #f9f9f9; /* Light grey background */
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1); /* Soft shadow for depth */
+  }
+  
+  .offer-section h2, .offersMade h1 {
+    margin-bottom: 15px;
+    color: #333;
+    text-align: center; /* Center align the section headers */
+  }
+  
+  /* Styling for individual offers */
+  .offersMade ul {
+    list-style: none; /* Remove default list bullet points */
+    padding: 0;
+  }
+  
+  .offersMade li {
+    background-color: #fff; /* White background for each offer */
+    border-bottom: 1px solid #eaeaea; /* Subtle separator for each offer */
+    padding: 10px;
+    margin-bottom: 10px; /* Space between offers */
+    border-radius: 4px; /* Slightly rounded corners for each offer */
+  }
+  
+  /* Additional styles for offer submission form */
+  .offer-section form {
     display: flex;
     flex-direction: column;
   }
   
-  .offer-section h2 {
-    margin-bottom: 10px;
-  }
-  
   .offer-section textarea {
-    height: 100px;
-    margin-bottom: 10px;
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    resize: vertical;
+    margin-bottom: 10px; /* Add space between the textarea and the submit button */
+    height: 80px; /* Adjust height as needed */
   }
   
   .offer-section button {
+    align-self: center; /* Center the button in the offer section */
     padding: 10px 20px;
-    font-size: 16px;
-    color: #fff;
-    background-color: #007bff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
   }
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .product-page {
+      flex-direction: column;
+    }
   
-  .offer-section button:hover {
-    background-color: #0056b3;
+    .product-details, .offer-container {
+      flex-basis: 100%;
+    }
+  
+    .product-details img {
+      max-width: 100%; /* Allows the image to resize on smaller screens */
+    }
+  
+    .offer-container {
+      padding-left: 0;
+    }
   }
   

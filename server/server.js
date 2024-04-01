@@ -118,9 +118,42 @@ app.get('/item-details/:id', async (req, res) => {
   })
   app.get('/products', async (req, res) => {
     try {
-      const query = 'SELECT id FROM items'; // Add other fields as necessary
+      const query = 'SELECT id FROM items WHERE active = true'; // Add other fields as necessary
       const result = await pool.query(query);
       res.json(result.rows); // Sends all product data to the client
+    } catch (err) {
+      console.error(err);
+      res.status(500).send('Server error');
+    }
+  })
+  app.get('/offerDFV/:id/:email', async (req, res) => {
+    try {
+      const query = 'SELECT offer FROM offers WHERE item_id = CAST($1 AS int) AND email = CAST($2 as VARCHAR(255))'; // Add other fields as necessary
+      const result = await pool.query(query, [req.params.id, req.params.email]);
+      console.log(result);
+      res.json(result.rows); // Sends all product data to the client
+    } catch (err) {
+      console.error(err);
+      res.status(500).send('Server error');
+    }
+  })
+  app.get('/offerD/:id', async (req, res) => {
+    try {
+      const query = 'SELECT offer id FROM offers WHERE item_id = CAST($1 AS int)'; // Add other fields as necessary
+      const result = await pool.query(query, [req.params.id]);
+      console.log(result);
+      res.json(result.rows); // Sends all product data to the client
+    } catch (err) {
+      console.error(err);
+      res.status(500).send('Server error');
+    }
+  })
+  app.get('/accept/:id', async(req, res) => {
+    try {
+      const query = 'UPDATE items SET active = false WHERE id = $1';
+      const result = await pool.query(query, [req.params.id]);
+      console.log(result);
+      res.send('ok'); // Sends all product data to the client
     } catch (err) {
       console.error(err);
       res.status(500).send('Server error');

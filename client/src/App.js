@@ -32,7 +32,8 @@ function App() {
         </Route>
         <Route path='/NewItem' element={<NewItem/>}/>
         <Route path='/Login' element={<LoginSignup/>}/>
-        <Route path="/ProductPage/:productId" element={<ProductPage />} />
+        {authToken && <Route path="/ProductPage/:productId" element={<ProductPage />} />}
+        {!authToken && <Route path="/ProductPage/:productId" element={<LoginSignup />} />}
       </Routes>
       </BrowserRouter>
     </div>

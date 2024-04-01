@@ -19,7 +19,6 @@ const Shop = () => {
   }, []);
   console.log(productIds);
   return (
-
     <div className='shop-container'>
       {productIds.map((id) => <Product itemId={id.id}/>)}
       
