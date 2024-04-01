@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './Product.css'
+import { Link } from 'react-router-dom';
 const Product = ({ itemId }) => {
   const [itemDetails, setItemDetails] = useState({ name: '', description: '', image: '' });
 
@@ -24,7 +25,9 @@ const Product = ({ itemId }) => {
   return (
     <div className="item-card">
     <div className="item-image-wrapper">
+    <Link to={`/ProductPage/${itemId}`}>
     {itemDetails.image && <img className='item-image' src={itemDetails.image} alt={itemDetails.name} />}
+    </Link>
     </div>
     <div className="item-info">
       <h3 className="item-name">{itemDetails.name}</h3>

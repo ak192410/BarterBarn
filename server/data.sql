@@ -16,5 +16,13 @@ CREATE TABLE items (
     description TEXT NOT NULL,
     image BYTEA,
     created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT (NOW() AT TIME ZONE 'UTC'),
-    active BOOLEAN NOT NULL DEFAULT 1
+    active BOOLEAN NOT NULL DEFAULT true
+);
+
+CREATE TABLE offers (
+    id SERIAL PRIMARY KEY,
+    item_id INTEGER NOT NULL REFERENCES items(id),
+    email VARCHAR(255) NOT NULL,
+    offer TEXT NOT NULL,
+    active BOOLEAN NOT NULL DEFAULT true
 );

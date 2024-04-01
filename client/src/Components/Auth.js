@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import './Auth.css'
 import { useCookies } from 'react-cookie'
+import { useNavigate } from 'react-router-dom'
 const Auth = () => {
     const [cookies, setCookie, removeCookie] = useCookies(null)
     const [logIn, setIsLogin] = useState(true)
@@ -8,6 +9,7 @@ const Auth = () => {
     const [password, setPassword] = useState(null)
     const [confirmPassword, setConfirmPassword] = useState(null)
     const [error, setError] = useState(null)
+    const navigate = useNavigate();
     console.log(cookies)
     const seeLogin = (status) => {
         setError(null)
@@ -30,7 +32,7 @@ const Auth = () => {
         } else {
             setCookie('Email', data.email)
             setCookie('AuthToken', data.token)
-            window.location.reload()
+            navigate("/");
         }
     }
     return (

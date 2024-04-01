@@ -71,10 +71,28 @@ app.post('/newItem', upload.single('image'), async (req, res) => {
     }
 })
 
+app.post('/newoffer', async(req, res) => {
+  const { offer, userEmail, productId } = req.body;
+  console.log(productId, userEmail, offer)
+  try{
+    await pool.query('INSERT INTO offers (item_id, email, offer) VALUES ($1, $2, $3)', 
+      [
+        productId,
+        userEmail,
+        offer
+      ]);
+    res.send('Success')
+} catch (err) {
+    console.error()
+    console.log(err)
+    res.status(500).send('Error with offer');
+}
+})
+
 app.get('/item-details/:id', async (req, res) => {
     try {
       const { id } = req.params;
-      const query = 'SELECT name, description, image FROM items WHERE id = $1';
+      const query = 'SELECT name, description, image, originator_email FROM items WHERE id = $1';
       const result = await pool.query(query, [id]);
   
       if (result.rows.length > 0) {
@@ -87,6 +105,7 @@ app.get('/item-details/:id', async (req, res) => {
         res.json({
           name: item.name,
           description: item.description,
+          email: item.originator_email,
           image: imageDataUri
         });
       } else {
@@ -97,3 +116,14 @@ app.get('/item-details/:id', async (req, res) => {
       res.status(500).send('Server error');
     }
   })
+  app.get('/products', async (req, res) => {
+    try {
+      const query = 'SELECT id FROM items'; // Add other fields as necessary
+      const result = await pool.query(query);
+      res.json(result.rows); // Sends all product data to the client
+    } catch (err) {
+      console.error(err);
+      res.status(500).send('Server error');
+    }
+  })
+  

@@ -5,7 +5,8 @@ import Cart from './Pages/Cart';
 import Product from './Pages/Product';
 import NewItem from './Pages/NewItem';
 import LoginSignup from './Pages/LoginSignup';
-import { useCookies } from 'react-cookie'
+import ProductPage from './Pages/ProductPage'
+import { useCookies } from 'react-cookie';
 import {
   BrowserRouter as Router,
   Routes,
@@ -31,6 +32,7 @@ function App() {
         </Route>
         <Route path='/NewItem' element={<NewItem/>}/>
         <Route path='/Login' element={<LoginSignup/>}/>
+        <Route path="/ProductPage/:productId" element={<ProductPage />} />
       </Routes>
       </BrowserRouter>
     </div>

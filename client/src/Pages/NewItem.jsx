@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './NewItem.css'
 import { useCookies } from 'react-cookie'
-
+import { useNavigate } from 'react-router-dom'; 
 const NewItem = () => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
@@ -11,7 +11,7 @@ const NewItem = () => {
   const handleNameChange = (e) => setName(e.target.value);
   const handleDescriptionChange = (e) => setDescription(e.target.value);
   const handleImageChange = (e) => setImage(e.target.files[0]);
-
+  const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -28,7 +28,8 @@ const NewItem = () => {
 
     if (response.ok) {
       // Handle successful submission here
-      console.log('Item submitted successfully');
+      console.log('Item submitted successfully'); 
+      navigate("/");
     } else {
       // Handle errors here
       console.error('An error occurred while submitting the form');
