@@ -8,3 +8,5 @@ const pool = new Pool({
     port: process.env.DBPORT,
     database: 'barterbarn'
 })
+
+module.exports = pool

@@ -1,12 +1,16 @@
 import { useState } from 'react'
 import './Auth.css'
+import { useCookies } from 'react-cookie'
 const Auth = () => {
+    const [cookies, setCookie, removeCookie] = useCookies(null)
     const [logIn, setIsLogin] = useState(true)
     const [email, setEmail] = useState(null)
     const [password, setPassword] = useState(null)
     const [confirmPassword, setConfirmPassword] = useState(null)
     const [error, setError] = useState(null)
+    console.log(cookies)
     const seeLogin = (status) => {
+        setError(null)
         setIsLogin(status)
     }
     const loginSubmit = async (e, endpoint) => {
@@ -15,16 +19,34 @@ const Auth = () => {
             setError('Passwords do not match')
             return
         }
-        await fetch(`${process.env.REACT_APP_SERVERURL}/${endpoint}`)
+        const response = await fetch(`${process.env.REACT_APP_SERVERURL}/${endpoint}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, password })
+        })
+        const data = await response.json()
+        if (data.detail) {
+            setError(data.detail)
+        } else {
+            setCookie('Email', data.email)
+            setCookie('AuthToken', data.token)
+            window.location.reload()
+        }
     }
     return (
         <div className="auth-container">
             <div className="auth-container-box">
                 <form>
                     <h2>{logIn ? 'Log In....and Barter' : 'Sign up!'}</h2>
-                    <input type="email" placeholder="email"/>
-                    <input type="password" placeholder="password"/>
-                    {!logIn && <input type="password" placeholder="confirm password" />}
+                    <input type="email" 
+                    placeholder="email" 
+                    onChange={(e) => setEmail(e.target.value)}/>
+                    <input type="password" 
+                    placeholder="password" 
+                    onChange={(e) => setPassword(e.target.value)}/>
+                    {!logIn && <input type="password" 
+                    placeholder="confirm password" 
+                    onChange={(e) => setConfirmPassword(e.target.value)}/>}
                     <input type="submit" className="create" onClick={(e) => loginSubmit(e, logIn ? 'login' : 'signup')}/>
                     {error && <p>{error}</p>}
                 </form>
