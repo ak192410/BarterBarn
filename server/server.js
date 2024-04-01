@@ -10,6 +10,7 @@ app.use(express.json());
 app.listen(PORT, ( )=> console.log(`Server running on PORT ${PORT}`))
 
 
+
 //signup
 app.post('/signup', async(req, res) => {
     console.log(req.body)
