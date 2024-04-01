@@ -5,7 +5,7 @@ import Cart from './Pages/Cart';
 import Product from './Pages/Product';
 import NewItem from './Pages/NewItem';
 import LoginSignup from './Pages/LoginSignup';
-import { AuthTokenContext } from './context';
+import { useCookies } from 'react-cookie'
 import {
   BrowserRouter as Router,
   Routes,
@@ -16,24 +16,24 @@ import {
 
 
 function App() {
-  const authToken = false
+  const [cookies, setCookie, removeCookie] = useCookies(null)
+  const authToken = cookies.AuthToken
+  const userEmail = cookies.Email
   return (
-    <AuthTokenContext.Provider value={authToken}>
-      <div>
-        <BrowserRouter>
-        <Navbar/> 
-        <Routes>
-          <Route path='/' element={<Shop/>}/>
-          <Route path='/Cart' element={<Cart/>}/>
-          <Route path='/Product' element={<Product/>}>
-            <Route path=':productId' element={<Product/>}/>
-          </Route>
-          <Route path='/NewItem' element={<NewItem/>}/>
-          <Route path='/Login' element={<LoginSignup/>}/>
-        </Routes>
-        </BrowserRouter>
-      </div>
-    </AuthTokenContext.Provider>
+    <div>
+      <BrowserRouter>
+      <Navbar/> 
+      <Routes>
+        <Route path='/' element={<Shop/>}/>
+        <Route path='/Cart' element={<Cart/>}/>
+        <Route path='/Product' element={<Product/>}>
+          <Route path=':productId' element={<Product/>}/>
+        </Route>
+        <Route path='/NewItem' element={<NewItem/>}/>
+        <Route path='/Login' element={<LoginSignup/>}/>
+      </Routes>
+      </BrowserRouter>
+    </div>
   );
 }
 

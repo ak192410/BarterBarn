@@ -3,9 +3,17 @@ import './Navbar.css'
 import logo from '../Assets/logo.png'
 import trades from '../Assets/trades.png'
 import { Link } from 'react-router-dom';
-import { useAuthToken } from '../../context';
+import { useCookies } from 'react-cookie'
 const Navbar = () => {
-  const authToken = useAuthToken();
+  const [cookies, setCookie, removeCookie] = useCookies(null)
+  const authToken = cookies.AuthToken
+  const handleLogout = () => {
+    // Remove multiple cookies
+    removeCookie('AuthToken');
+    removeCookie('email');
+    
+    // Additional logout logic can go here if necessary
+  };
   return (
     <div className ='navbar'>
       <div className ='navlogo'>
@@ -28,7 +36,9 @@ const Navbar = () => {
         </Link>
         }
         {authToken &&
-          <button>logout</button>
+        <Link to="/">
+          <button onClick={() => handleLogout()}>logout</button>
+        </Link>
         }
         <Link to={authToken ? "/Cart": '/Login'}>
           <img style={{width:110, height:92}} src={trades} alt=""/>

@@ -7,7 +7,8 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 app.use(cors())
 app.use(express.json());
-app.listen(PORT, ( )=> console.log(Server running on PORT ${PORT}))
+app.listen(PORT, ( )=> console.log(`Server running on PORT ${PORT}`))
+
 
 
 //signup
